@@ -15,7 +15,9 @@ class Inventory_model extends \Model
         $this->rs['bundleid'] = '';
         $this->rs['bundlename'] = '';
         $this->rs['path'] = '';
-        $this->rt['path'] = 'VARCHAR(1024)';
+        
+        // Add local config
+        configAppendFile(__DIR__ . '/config.php');
     }
 
     /**
