@@ -1,3 +1,4 @@
+<?php configAppendFile(__DIR__ . '/../config.php'); ?>
 <?php foreach(conf('apps_to_track', array()) as $string):?>
 <div class="col-lg-4 col-md-6">
     <div class="panel panel-default app-widget" data-ident="<?php echo $string;?>">
