@@ -1,3 +1,6 @@
+<div id="inventory-tab"></div>
+<h2 data-i18n="inventory.inventory_items"></h2>
+
 <p>
 <table class="inventory table table-striped table-bordered">
 	<thead>
