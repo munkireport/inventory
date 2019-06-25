@@ -48,9 +48,9 @@ Skip all apps in /System/Library
 ```bash
 BUNDLEPATH_IGNORELIST='/System/Library/.*'
 ```
-Skip all apps that are contained in an app bundle
+Skip all apps that are contained in an app bundle (Please note that backslashes need to be escaped)
 ```bash
-BUNDLEPATH_IGNORELIST='.*\.app\/.*\.app'
+BUNDLEPATH_IGNORELIST='.*\\.app\\/.*\\.app'
 ```
 
 Defaults:
