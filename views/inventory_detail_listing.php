@@ -2,8 +2,9 @@
 
 $this->view('listings/default',
 [
-  "i18n_title" => 'inventory.report',
+  "i18n_title" => 'ard.listing.title',
   "js_link" => "module/inventory/js/inventory_format",
+  "js_init" => "initializeInventory('$name', '$version')",
   "table" => [
     [
       "column" => "machine.computer_name",
@@ -14,20 +15,27 @@ $this->view('listings/default',
     [
       "column" => "reportdata.serial_number",
       "i18n_header" => "serial",
+      "filter" => "inventoryFilter",
     ],
     [
       "column" => "reportdata.long_username",
       "i18n_header" => "username",
     ],
     [
-      "column" => "inventoryitem.name",
-      "i18n_header" => "name",
-      "formatter" => "getNameLink",
-    ],
-    [
       "column" => "inventoryitem.version",
       "i18n_header" => "version",
-      "formatter" => "getVersionLink",
+    ],
+    [
+      "column" => "inventoryitem.bundleid",
+      "i18n_header" => "bundle_id",
+    ],
+    [
+      "column" => "inventoryitem.bundlename",
+      "i18n_header" => "cfbundlename",
+    ],
+    [
+      "column" => "inventoryitem.path",
+      "i18n_header" => "path",
     ],
   ]
 ]);

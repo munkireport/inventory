@@ -7,12 +7,31 @@ class Inventory_controller extends Module_controller
         // Store module path
         $this->module_path = dirname(__FILE__) .'/';
         $this->view_path = $this->module_path . 'views/';
+
+        if ($this->authorized()) {
+            $this->connectDB();
+        }
     }
 
     public function index()
     {
-        
         echo "You've loaded the inventory module!";
+    }
+
+    public function get_data($serial_number = '')
+    {
+        // Protect this handler
+        if (! $this->authorized()) {
+            redirect('auth/login');
+        }
+
+        $out = Inventory_model::select('name', 'version', 'bundleid', 'path')
+            ->where('inventoryitem.serial_number', $serial_number)
+            ->filter()
+            ->get();
+        
+        $obj = new View();
+        $obj->view('json', array('msg' => $out));
     }
     
     /**
@@ -27,12 +46,25 @@ class Inventory_controller extends Module_controller
             redirect('auth/login');
         }
         $app = rawurldecode($app);
-        $inventory_item_obj = new Inventory_model();
+
+        // Detect wildcard character
+        if (preg_match('/[_%]/', $app)) {
+            $comparator = 'like';
+        }else{
+            $comparator = '=';
+        }
+
+        $out = Inventory_model::selectRaw('version, COUNT(*) AS count')
+            ->where('name', $comparator, $app)
+            ->filter()
+            ->groupBy('version')
+            ->orderBy('version', 'desc')
+            ->get();
+
         $obj = new View();
-        $obj->view('json', array('msg' => $inventory_item_obj->appVersions($app)));
+        $obj->view('json', array('msg' => $out));
     }
 
-    // Todo: move expensive data objects to view
     public function items($name = '', $version = '')
     {
         // Protect this handler
@@ -40,45 +72,12 @@ class Inventory_controller extends Module_controller
             redirect('auth/login');
         }
 
-        $data['inventory_items'] = array();
-        $data['name'] = 'No item';
-
-        if ($name) {
-            $name = rawurldecode($name);
-            $inventory_item_obj = new Inventory_model();
-            $data['name'] = $name;
-            if ($version) {
-                $version = rawurldecode($version);
-                $items = $inventory_item_obj->retrieveMany(
-                    'name = ? AND version = ?',
-                    array($name, $version)
-                );
-            } else {
-                $items = $inventory_item_obj->retrieveMany(
-                    'name = ?',
-                    array($name)
-                );
-            }
-            
-            foreach ($items as $item) {
-                $machine = new Machine_model($item->serial_number);
-                // Check if authorized for this serial
-                if (! $machine->id) {
-                    continue;
-                }
-                $reportdata = new Reportdata_model($item->serial_number);
-                $instance['serial_number'] = $item->serial_number;
-                $instance['hostname'] = $machine->computer_name;
-                $instance['username'] = $reportdata->console_user;
-                $instance['version'] = $item->version;
-                $instance['bundleid'] = $item->bundleid;
-                $instance['bundlename'] = $item->bundlename;
-                $instance['path'] = $item->path;
-                $data['inventory_items'][] = $instance;
-            }
-        }
+        $data['page'] = 'clients';
+        $data['scripts'] = array("clients/client_list.js");
+        $data['name'] = rawurldecode($name);
+        $data['version'] = rawurldecode($version);
 
         $obj = new View();
-        $obj->view('inventoryitem_detail', $data, $this->view_path);
+        $obj->view('inventory_detail_listing', $data, $this->view_path);
     }
 }
