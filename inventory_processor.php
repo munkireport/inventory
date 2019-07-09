@@ -38,7 +38,10 @@ class Inventory_processor extends Processor
                     continue;
                 }
                 $item['serial_number'] = $this->serial_number;
-                $item['bundlename'] = isset($item['CFBundleName']) ? $item['CFBundleName'] : '';
+                if(array_key_exists('CFBundleName', $item)){
+                    $item['bundlename'] = $item['CFBundleName'];
+                    unset($item['CFBundleName']);
+                }
                 
                 $save_array[] = $item;
             }
