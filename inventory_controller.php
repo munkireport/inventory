@@ -7,10 +7,6 @@ class Inventory_controller extends Module_controller
         // Store module path
         $this->module_path = dirname(__FILE__) .'/';
         $this->view_path = $this->module_path . 'views/';
-
-        if ($this->authorized()) {
-            $this->connectDB();
-        }
     }
 
     public function index()
