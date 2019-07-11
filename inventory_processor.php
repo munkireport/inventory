@@ -17,7 +17,7 @@ class Inventory_processor extends Processor
         // List of paths to ignore
         $bundlepath_ignorelist = is_array(conf('bundlepath_ignorelist')) ? conf('bundlepath_ignorelist') : array();
         $path_regex = ':^'.implode('|', $bundlepath_ignorelist).'$:';
-                    
+
         $parser = new CFPropertyList();
         $parser->parse(
             $data,
@@ -27,7 +27,7 @@ class Inventory_processor extends Processor
         if (count($inventory_list)) {
             // clear existing inventory items
             Inventory_model::where('serial_number', $this->serial_number)->delete();
-            
+
             // insert current inventory items
             $save_array = [];
             foreach ($inventory_list as $item) {
@@ -42,12 +42,12 @@ class Inventory_processor extends Processor
                     $item['bundlename'] = $item['CFBundleName'];
                     unset($item['CFBundleName']);
                 }
-                
+
                 $save_array[] = $item;
             }
 
             // Bulk insert
-            Inventory_model::insert($save_array);
+            Inventory_model::insertChunked($save_array);
         }
 
         return $this;
