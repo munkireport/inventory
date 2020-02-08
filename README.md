@@ -60,7 +60,7 @@ BUNDLEPATH_IGNORELIST='/System/Library/.*, .*/Library/AutoPkg.*, /.DocumentRevis
 
 #### APPS_TO_TRACK
 
-Apps Version Report
+Apps Version Widget
 
 List of applications, by name, that you want to see in the apps
 version report. If this is not set the report page will appear empty.
@@ -69,4 +69,27 @@ This is case insensitive but must be an array.
 ```bash
 APPS_TO_TRACK='Flash Player, Java, Firefox, Microsoft Excel'
 ```
+#### Single app widget
 
+Starting with MunkiReport v5.2.0 you can also use multiple widgets that each track a single application. This way you have more control over your dashboard and you can track different apps in different dashboards. To accomplish this, pass the `appName` and `widget` variables to the widget using the dashboard yaml file.
+
+Note that you still can use the `APPS_TO_TRACK` configuration by not passing in `appName`.
+
+Example: 
+
+```
+display_name: My Awesome Dashboard
+hotkey: q
+row1:
+    app1: {appName: "Safari", widget: "app"}
+    app2: {appName: "Visual Studio Code", widget: "app"}
+    messages:
+row2:
+    new_clients:
+    pending_apple:
+    pending_munki:
+row3:
+    munki:
+    disk_report:
+    uptime:
+```
