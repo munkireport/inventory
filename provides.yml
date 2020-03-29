@@ -1,0 +1,9 @@
+client_tabs:
+    inventory-items: { view: inventory_items_tab, i18n: inventory.inventory_items, badge: inventory-cnt }
+listings:
+    inventory: { view: inventory_listing, i18n: inventory.listing }
+    inventory_detail: { view: inventory_detail_listing, i18n: inventory.listing, hide_from_menu: true }
+widgets:
+    app: { view: app_widget }
+reports:
+    appVersions: { view: appversions_report, i18n: inventory.appversions_report }

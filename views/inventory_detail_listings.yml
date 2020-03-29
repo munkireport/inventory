@@ -1,0 +1,27 @@
+i18n_title: ard.listing.title
+js_link: module/inventory/js/inventory_format
+table:
+    -
+        column: machine.computer_name
+        i18n_header: listing.computername
+        formatter: clientDetail
+        tab_link: inventory-items
+    -
+        column: reportdata.serial_number
+        i18n_header: serial
+        filter: inventoryFilter
+    -
+        column: reportdata.long_username
+        i18n_header: username
+    -
+        column: inventoryitem.version
+        i18n_header: version
+    -
+        column: inventoryitem.bundleid
+        i18n_header: bundle_id
+    -
+        column: inventoryitem.bundlename
+        i18n_header: cfbundlename
+    -
+        column: inventoryitem.path
+        i18n_header: path

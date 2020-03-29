@@ -1,4 +1,7 @@
 <?php
+
+use munkireport\lib\Listing;
+
 class Inventory_controller extends Module_controller
 {
     // Require authentication
@@ -7,6 +10,8 @@ class Inventory_controller extends Module_controller
         // Store module path
         $this->module_path = dirname(__FILE__) .'/';
         $this->view_path = $this->module_path . 'views/';
+        $this->modules = getMrModuleObj()->loadInfo();
+
     }
 
     public function index()
@@ -63,17 +68,12 @@ class Inventory_controller extends Module_controller
 
     public function items($name = '', $version = '')
     {
-        // Protect this handler
-        if (! $this->authorized()) {
-            redirect('auth/login');
-        }
-
         $data['page'] = 'clients';
-        $data['scripts'] = array("clients/client_list.js");
-        $data['name'] = rawurldecode($name);
-        $data['version'] = rawurldecode($version);
+        $name = rawurldecode($name);
+        $version = rawurldecode($version);
+        $data['js_init'] = "initializeInventory('$name', '$version')";
 
-        $obj = new View();
-        $obj->view('inventory_detail_listing', $data, $this->view_path);
+        $listing = new Listing($this->modules->getListing('inventory', 'inventory_detail'));
+        $listing->render($data);
     }
 }
