@@ -7,9 +7,9 @@
 
 <?php foreach( $appList as $string):?>
 <div class="col-lg-4 col-md-6">
-    <div class="panel panel-default app-widget" data-ident="<?php echo $string;?>">
-        <div class="panel-heading" data-container="body">
-            <h3 class="panel-title"><i class="fa fa-tachometer"></i> <span></span></h3>
+    <div class="card app-widget" data-ident="<?php echo $string;?>">
+        <div class="card-header" data-container="body">
+            <i class="fa fa-tachometer"></i> <span></span>
         </div>
         <div class="list-group scroll-box"></div>
     </div><!-- /panel -->
