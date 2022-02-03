@@ -4,7 +4,7 @@
 DR_CTL="${BASEURL}index.php?/module/inventory/"
 
 # Find out where the munki directory is to set accordingly.
-munki_install_dir=$(/usr/bin/python -c 'import CoreFoundation; print CoreFoundation.CFPreferencesCopyAppValue("ManagedInstallDir", "ManagedInstalls")')
+munki_install_dir=$(osascript -l JavaScript -e "ObjC.import('Foundation'); ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('ManagedInstalls').objectForKey('ManagedInstallDir'))")
 munki_install_dir=$(echo ${munki_install_dir} | sed 's/\/$//')
 
 # Get the scripts in the proper directories

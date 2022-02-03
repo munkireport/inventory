@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/munkireport/munkireport-python2
 """
 Adds Internet Plug-Ins to the Application Inventory data that is gathered
 by munki.
