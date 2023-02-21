@@ -1,4 +1,4 @@
-#!/usr/local/munkireport/munkireport-python2
+#!/usr/local/munkireport/munkireport-python3
 """
 Adds Internet Plug-Ins to the Application Inventory data that is gathered
 by munki.
@@ -24,13 +24,13 @@ else:
 try:
     appinv = FoundationPlist.readPlist(invPath)
 except FoundationPlist.NSPropertyListSerializationException as e:
-    print "{0} couldn't be found. Exiting...".format(invPath)
+    print("{0} couldn't be found. Exiting...".format(invPath))
     exit(1)
 
 plugins = r"/Library/Internet Plug-Ins/"
 directoryListing = os.listdir(plugins)
 
-print "Adding %i plugins" % len(directoryListing)
+print("Adding %i plugins" % len(directoryListing))
 
 for x in directoryListing:
     path = os.path.join(plugins, x, 'Contents/Info.plist')
@@ -43,7 +43,7 @@ for x in directoryListing:
         plugin['path'] = os.path.join(plugins, x)
         plugin['name'] = info.get('CFBundleName', os.path.splitext(os.path.basename(x))[0])
         appinv.append(plugin.copy())
-    except Exception, message:
+    except Exception as message:
         pass
 
 FoundationPlist.writePlist(appinv, invPath)
