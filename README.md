@@ -5,7 +5,7 @@ Gathers inventory information found in `/Library/Managed Installs/ApplicationInv
 
 The table provides the following information per 'item':
 
-* id (int) Unique id
+* id (bigint) Unique id
 * serial_number (string) Serial Number
 * name (string) Name
 * version (string) Version
