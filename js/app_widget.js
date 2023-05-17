@@ -6,15 +6,15 @@ $(document).on('appReady', function(){
     $('.app-widget').each(function(){
         var appName = $(this).data('ident');
         // Set tooltip
-        $(this).find('div.panel-heading')
+        $(this).find('div.card-header')
             .attr('title', i18n.t('inventory.app.versions', {app: appName}))
             .tooltip();
         // Create url
         var url = appUrl + '/module/inventory/items/' + appName;
         // Set title
-        $(this).find('.panel-title span')
+        $(this).find('.card-header span')
             .text(appName)
-            .after('<a href="'+url+'" class="btn btn-xs pull-right"><i class="fa fa-list"></i></a>');
+            .after('<a href="'+url+'" class="btn btn-sm pull-right"><i class="fa fa-list"></i></a>');
         // Add to app list
         apps.push({
             name: appName,
@@ -41,7 +41,7 @@ $(document).on('appReady', function(){
                         .attr('href', appUrl + '/module/inventory/items/' + app.name + '/' + d.version)
                         .text(d.version)
                         .append($('<span>')
-                            .addClass('badge pull-right')
+                            .addClass('badge badge-light pull-right')
                             .text(d.count)));
                 });
             });
