@@ -13,6 +13,7 @@
         </div>
         <div class="list-group scroll-box"></div>
     </div><!-- /panel -->
+    <p><!-- /spacing -->
 </div><!-- /col -->
 <?php endforeach?>
 

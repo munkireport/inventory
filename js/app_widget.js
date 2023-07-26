@@ -14,7 +14,7 @@ $(document).on('appReady', function(){
         // Set title
         $(this).find('.card-header span')
             .text(appName)
-            .after('<a href="'+url+'" class="btn btn-sm pull-right"><i class="fa fa-list"></i></a>');
+            .after('<a href="'+url+'" class="pull-right"><i class="fa fa-list"></i></a>');
         // Add to app list
         apps.push({
             name: appName,
@@ -38,10 +38,11 @@ $(document).on('appReady', function(){
                 $.each(data, function(j, d){
                     app.list.append($('<a>')
                         .addClass('list-group-item')
+                        .addClass('list-group-item-action')
                         .attr('href', appUrl + '/module/inventory/items/' + app.name + '/' + d.version)
                         .text(d.version)
                         .append($('<span>')
-                            .addClass('badge badge-light pull-right')
+                            .addClass('badge badge-secondary pull-right')
                             .text(d.count)));
                 });
             });
