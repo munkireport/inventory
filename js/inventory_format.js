@@ -53,6 +53,7 @@ var getNameLink = function(colNumber, row){
           .text(appName)
     )
 }
+
 var getVersionLink = function(colNumber, row){
   var cell = $('td:eq('+colNumber+')', row);
   var version = cell.text();

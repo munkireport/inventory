@@ -14,7 +14,7 @@ class InventoryBigintId extends Migration
             $table->bigIncrements('id')->change();
         });
     }
-    
+
     public function down()
     {
         $capsule = new Capsule();

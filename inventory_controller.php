@@ -11,7 +11,6 @@ class Inventory_controller extends Module_controller
         $this->module_path = dirname(__FILE__) .'/';
         $this->view_path = $this->module_path . 'views/';
         $this->modules = getMrModuleObj()->loadInfo();
-
     }
 
     public function index()
@@ -34,7 +33,7 @@ class Inventory_controller extends Module_controller
         $obj = new View();
         $obj->view('json', array('msg' => $out));
     }
-    
+
     /**
     * Get versions and count from an application
     *

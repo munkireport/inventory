@@ -14,7 +14,7 @@
 
 <script>
 $(document).on('appReady', function(){
-	$.getJSON(appUrl + '/module/inventory/get_data/' + serialNumber, function(data){
+  $.getJSON(appUrl + '/module/inventory/get_data/' + serialNumber, function(data){
     tbody = $('table.inventory tbody');
     $.each(data, function(i,item){
 
@@ -36,6 +36,6 @@ $(document).on('appReady', function(){
         $('#inventory-cnt').html(oSettings.fnRecordsTotal());
       }
     });
-	});
+  });
 });
 </script>
