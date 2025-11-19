@@ -6,3 +6,4 @@ table:
     - { column: reportdata.long_username, i18n_header: username }
     - { column: inventoryitem.name, i18n_header: name, formatter: getNameLink }
     - { column: inventoryitem.version, i18n_header: version, formatter: getVersionLink }
+    - { column: inventoryitem.path, i18n_header: path }

@@ -13,7 +13,7 @@ The inventory module has two settings that can be managed by adding them to the 
 
 List of bundle-ids to be ignored when processing inventoryThe list is processed using regex, examples:
 
-Skip  all virtual windows apps created by parallels and VMware:
+Skip all virtual windows apps created by parallels and VMware:
 ```
 BUNDLEID_IGNORELIST='com.parallels.winapp.*, com.vmware.proxyApp.*'
 ```

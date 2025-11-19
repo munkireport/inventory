@@ -10,7 +10,7 @@ class Inventory_processor extends Processor
     {
         configAppendFile(__DIR__ . '/config.php');
 
-        //list of bundleids to ignore
+        // List of bundleids to ignore
         $bundleid_ignorelist = is_array(conf('bundleid_ignorelist')) ? conf('bundleid_ignorelist') : array();
         $regex = '/^'.implode('|', $bundleid_ignorelist).'$/';
 
@@ -25,10 +25,10 @@ class Inventory_processor extends Processor
         );
         $inventory_list = $parser->toArray();
         if (count($inventory_list)) {
-            // clear existing inventory items
+            // Clear existing inventory items
             Inventory_model::where('serial_number', $this->serial_number)->delete();
 
-            // insert current inventory items
+            // Insert current inventory items
             $save_array = [];
             foreach ($inventory_list as $item) {
                 if (preg_match($regex, $item['bundleid'])) {
@@ -41,6 +41,11 @@ class Inventory_processor extends Processor
                 if(array_key_exists('CFBundleName', $item)){
                     $item['bundlename'] = $item['CFBundleName'];
                     unset($item['CFBundleName']);
+                }
+
+                // Limit version string to 78 characters due to existing database limitations 
+                if(array_key_exists('version', $item) && strlen($item['version']) > 78){
+                    $item['version'] = substr($item['version'],0,78);
                 }
 
                 $save_array[] = $item;

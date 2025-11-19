@@ -4,8 +4,8 @@
 DR_CTL="${BASEURL}index.php?/module/inventory/"
 
 # Find out where the munki directory is to set accordingly.
-munki_install_dir=$(osascript -l JavaScript -e "ObjC.import('Foundation'); ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('ManagedInstalls').objectForKey('ManagedInstallDir'))")
-munki_install_dir=$(echo ${munki_install_dir} | sed 's/\/$//')
+munki_install_dir=$(/usr/bin/osascript -l JavaScript -e "ObjC.import('Foundation'); ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('ManagedInstalls').objectForKey('ManagedInstallDir'))")
+munki_install_dir=$(echo ${munki_install_dir} | /usr/bin/sed 's/\/$//')
 
 # Get the scripts in the proper directories
 "${CURL[@]}" "${DR_CTL}get_script/inventory_add_plugins" -o "${MUNKIPATH}postflight.d/inventory_add_plugins.py"
@@ -13,7 +13,7 @@ munki_install_dir=$(echo ${munki_install_dir} | sed 's/\/$//')
 # Check exit status of curl
 if [ $? = 0 ]; then
     # Make executable
-    chmod a+x "${MUNKIPATH}postflight.d/inventory_add_plugins.py"
+    /bin/chmod a+x "${MUNKIPATH}postflight.d/inventory_add_plugins.py"
     # make sure the munki install directory is defined. If not default back to normal
     if [[ "${munki_install_dir}" == "None" ]]; then
         # This also intended behavior if munki isn't installed
@@ -24,6 +24,6 @@ if [ $? = 0 ]; then
     fi
 else
     echo "Failed to download all required components!"
-    rm -f "${MUNKIPATH}postflight.d/inventory_add_plugins.py"
+    /bin/rm -f "${MUNKIPATH}postflight.d/inventory_add_plugins.py"
     ERR=1
 fi
